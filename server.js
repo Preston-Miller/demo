@@ -8,6 +8,9 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const sqlite3 = require('sqlite3').verbose();
 const path = require('path');
+const _ = require('lodash');
+const minimist = require('minimist');
+const config = require('./config');
 
 const app = express();
 const PORT = 3000;
@@ -18,10 +21,22 @@ const ADMIN_PASSWORD = 'admin123';
 const API_SECRET_KEY = 'sk_live_goat_seller_12345_secret_key';
 const DB_PATH = './goats.db';
 
+// More hardcoded secrets - backup admin, debug token
+const BACKUP_ADMIN_PASSWORD = 'backup_admin_2024';
+const DEBUG_API_TOKEN = 'debug-token-abc123xyz789';
+
+// Vulnerable: minimist with user input can lead to prototype pollution (CVE-2021-44906)
+const argv = minimist(process.argv.slice(2));
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(express.static('public'));
+
+// Use lodash (4.17.15 has known prototype pollution CVEs)
+function mergeGoatDefaults(goat) {
+  return _.merge({ seller_id: 1, description: '' }, goat);
+}
 
 const db = new sqlite3.Database(DB_PATH);
 
@@ -115,11 +130,25 @@ app.delete('/api/goats/:id', (req, res) => {
 app.get('/api/admin/stats', (req, res) => {
   if (req.cookies.isAdmin === 'true') {
     db.get('SELECT COUNT(*) as count FROM goats', (err, row) => {
-      res.json({ totalGoats: row.count, secret: API_SECRET_KEY });
+      res.json({
+        totalGoats: row.count,
+        secret: API_SECRET_KEY,
+        stripeKey: config.stripe.secretKey,
+        jwtSecret: config.jwtSecret,
+      });
     });
   } else {
     res.status(403).json({ error: 'Forbidden' });
   }
+});
+
+// Debug endpoint - SECURITY: exposes token and config in response
+app.get('/api/debug/health', (req, res) => {
+  res.json({
+    status: 'ok',
+    token: DEBUG_API_TOKEN,
+    dbPassword: config.database.password,
+  });
 });
 
 // Seed some goats

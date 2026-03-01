@@ -5,6 +5,11 @@
 
 const API_BASE = '';
 
+// SECURITY: Hardcoded API key in client-side code (visible in browser/source)
+const PUBLIC_API_KEY = 'pk_live_51ABC123def456GHI789jkl';
+const ANALYTICS_ID = 'UA-12345678-9';
+const INTERNAL_WEBHOOK_SECRET = 'whsec_do_not_commit_this';
+
 // SECURITY ISSUE: XSS - inserting user-controlled content into DOM without sanitization
 function renderGoats(goats) {
   const container = document.getElementById('goats-container');
