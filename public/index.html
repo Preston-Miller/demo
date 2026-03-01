@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Goat Seller - Buy Goats Online</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>🐐 Goat Seller</h1>
+    <p>Your trusted marketplace for quality goats</p>
+    <div id="auth-area">
+      <span id="user-display"></span>
+      <button id="logout-btn" style="display:none">Logout</button>
+      <form id="login-form" style="display:inline">
+        <input type="text" name="username" placeholder="Username" required>
+        <input type="text" name="password" placeholder="Password" required>
+        <button type="submit">Login</button>
+      </form>
+    </div>
+  </header>
+
+  <main>
+    <section class="search-section">
+      <h2>Search Goats</h2>
+      <!-- SECURITY: No sanitization - search term reflected in DOM -->
+      <input type="text" id="search-input" placeholder="Search by name or breed...">
+      <button id="search-btn">Search</button>
+      <div id="search-results-label"></div>
+    </section>
+
+    <section class="goats-list" id="goats-list">
+      <h2>Available Goats</h2>
+      <div id="goats-container"></div>
+    </section>
+
+    <section class="add-goat">
+      <h2>List a Goat for Sale</h2>
+      <form id="add-goat-form">
+        <input type="text" name="name" placeholder="Goat name" required>
+        <input type="text" name="breed" placeholder="Breed" required>
+        <input type="number" name="price" placeholder="Price ($)" step="0.01" required>
+        <textarea name="description" placeholder="Description"></textarea>
+        <button type="submit">Add Goat</button>
+      </form>
+    </section>
+
+    <section class="admin-link">
+      <a href="/admin.html">Admin Dashboard</a>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin - Goat Seller</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>🐐 Goat Seller - Admin</h1>
+    <a href="/">Back to store</a>
+  </header>
+  <main>
+    <section>
+      <h2>Stats</h2>
+      <div id="admin-stats">Loading...</div>
+    </section>
+  </main>
+  <script>
+    // SECURITY: Fetches admin endpoint - auth is only cookie; no CSRF token
+    fetch('/api/admin/stats', { credentials: 'include' })
+      .then(r => r.json())
+      .then(data => {
+        document.getElementById('admin-stats').innerHTML = 
+          `<p>Total goats: ${data.totalGoats}</p><p>API Secret: ${data.secret}</p>`;
+      })
+      .catch(() => {
+        document.getElementById('admin-stats').textContent = 'Access denied or error.';
+      });
+  </script>
+</body>
+</html>

@@ -1,0 +1,4 @@
+node_modules/
+goats.db
+.env
+.DS_Store
