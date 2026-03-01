@@ -1,6 +1,6 @@
 # VibeSec Security Report
 Repo: Preston-Miller/demo
-Scanned: 2026-03-01 02:18:09 UTC
+Scanned: 2026-03-01 02:19:02 UTC
 Issues Found: 5
 
 ## [SEV-001] CRITICAL -- Generic secret
@@ -20,8 +20,8 @@ Issues Found: 5
 3. Add automated secret scanning in CI and block new leaked credentials.
 
 **Fix Steps:**
-1. Remove the API_SECRET from the .env.example file and store it securely in environment variables.
-**Verify:** Check the .env.example file for the absence of API_SECRET.
+1. Remove the API_SECRET from .env.example and store it securely in environment variables.
+**Verify:** Check the .env.example file to ensure the API_SECRET is removed.
 
 ## [SEV-002] CRITICAL -- Generic secret
 
@@ -40,8 +40,8 @@ Issues Found: 5
 3. Add automated secret scanning in CI and block new leaked credentials.
 
 **Fix Steps:**
-1. Remove the JWT_SECRET from the .env.example file and store it securely in environment variables.
-**Verify:** Check the .env.example file for the absence of JWT_SECRET.
+1. Remove the JWT_SECRET from .env.example and store it securely in environment variables.
+**Verify:** Check the .env.example file to ensure the JWT_SECRET is removed.
 
 ## [SEV-003] CRITICAL -- AWS Access Key
 
@@ -49,7 +49,7 @@ Issues Found: 5
 **Type:** JavaScript
 **Line:** 22
 **Evidence:** `AKIAIOSFODNN7EXAMPLE`
-**Risk:** Sensitive information is stored in a publicly accessible file. An attacker accesses the config.js file and retrieves the AWS access key.
+**Risk:** Sensitive information is stored in a source code file. An attacker accesses config.js and retrieves the AWS access key.
 
 **OWASP Category:** Secrets Management
 **OWASP References:**
@@ -60,8 +60,8 @@ Issues Found: 5
 3. Add automated secret scanning in CI and block new leaked credentials.
 
 **Fix Steps:**
-1. Remove the AWS access key from config.js and store it securely in environment variables.
-**Verify:** Check the config.js file for the absence of the AWS access key.
+1. Remove the AWS access key from config.js and use IAM roles or environment variables for access.
+**Verify:** Check config.js to ensure the AWS access key is removed.
 
 ## [SEV-004] CRITICAL -- Generic secret
 
@@ -69,7 +69,7 @@ Issues Found: 5
 **Type:** JavaScript
 **Line:** 9
 **Evidence:** `API_KEY = 'pk_live_51ABC123def456GHI789jkl'`
-**Risk:** Sensitive information is stored in a publicly accessible file. An attacker accesses the public/app.js file and retrieves the internal webhook secret.
+**Risk:** Sensitive information is stored in a publicly accessible file. An attacker accesses public/app.js and retrieves the public API key.
 
 **OWASP Category:** Secrets Management
 **OWASP References:**
@@ -80,8 +80,8 @@ Issues Found: 5
 3. Add automated secret scanning in CI and block new leaked credentials.
 
 **Fix Steps:**
-1. Remove the INTERNAL_WEBHOOK_SECRET from public/app.js and store it securely in environment variables.
-**Verify:** Check the public/app.js file for the absence of INTERNAL_WEBHOOK_SECRET.
+1. Remove the public API key from public/app.js and use a secure method to access it.
+**Verify:** Check public/app.js to ensure the public API key is removed.
 
 ## [SEV-005] CRITICAL -- Generic secret
 
@@ -89,7 +89,7 @@ Issues Found: 5
 **Type:** JavaScript
 **Line:** 11
 **Evidence:** `SECRET = 'whsec_do_not_commit_this'`
-**Risk:** Sensitive information is stored in a publicly accessible file. An attacker accesses the server.js file and retrieves the backup admin password.
+**Risk:** Sensitive information is stored in a publicly accessible file. An attacker accesses public/app.js and retrieves the internal webhook secret.
 
 **OWASP Category:** Secrets Management
 **OWASP References:**
@@ -100,5 +100,5 @@ Issues Found: 5
 3. Add automated secret scanning in CI and block new leaked credentials.
 
 **Fix Steps:**
-1. Remove the BACKUP_ADMIN_PASSWORD from server.js and store it securely in environment variables.
-**Verify:** Check the server.js file for the absence of BACKUP_ADMIN_PASSWORD.
+1. Remove the internal webhook secret from public/app.js and store it securely.
+**Verify:** Check public/app.js to ensure the internal webhook secret is removed.
