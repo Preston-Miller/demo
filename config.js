@@ -11,11 +11,6 @@ module.exports = {
   },
 
   // Stripe keys (fake but realistic format)
-  stripe: {
-    secretKey: 'sk_live_51ABC123def456GHI789jkl',
-    publishableKey: 'pk_live_51ABC123def456GHI789jkl',
-    webhookSecret: 'whsec_goat_seller_webhook_secret_abc123',
-  },
 
   // AWS (for future S3 goat images)
   aws: {
