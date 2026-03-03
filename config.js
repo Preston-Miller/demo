@@ -15,7 +15,7 @@ module.exports = {
   // AWS (for future S3 goat images)
   aws: {
     accessKeyId: 'AKIAIOSFODNN7EXAMPLE',
-    secretAccessKey: 'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY',
+    secretAccessKey: 'wJalrXUtnFdEMI/K7MDENG/bPxRfiCYEXAMPLEKEY',
     region: 'us-east-1',
   },
 
