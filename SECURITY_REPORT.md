@@ -1,6 +1,6 @@
 # VibeSec Security Report
 Repo: Preston-Miller/demo
-Scanned: 2026-03-04 20:46:10 UTC
+Scanned: 2026-03-04 20:54:57 UTC
 Issues Found: 5
 
 You are an AI coding agent. Fix each issue below in order.
@@ -34,18 +34,18 @@ After fixing an issue, run its verification step before moving to the next issue
 
 ## Finding 3: AWS Access Key Exposure
 **What this is:** An AWS access key is found in the `config.js` file.
-**How it would be exploited:** An attacker can use this access key to access AWS resources, potentially leading to data loss or service disruption.
-**Business impact:** This can incur significant costs and operational issues, as well as expose sensitive data stored in AWS.
+**How it would be exploited:** An attacker can use this access key to gain unauthorized access to AWS resources, potentially leading to data loss or service disruption.
+**Business impact:** This can incur significant costs and operational issues, as well as compromise sensitive data stored in AWS.
 
 ## Finding 4: Generic Secret Exposure - Internal Webhook Secret
 **What this is:** An internal webhook secret is exposed in the `public/app.js` file.
-**How it would be exploited:** An attacker can use this secret to send unauthorized requests to internal services, compromising the application's integrity.
-**Business impact:** This can lead to data manipulation, service outages, and loss of customer trust.
+**How it would be exploited:** An attacker can use this secret to send unauthorized requests to internal services, potentially manipulating data or triggering actions.
+**Business impact:** This can lead to data integrity issues and unauthorized actions within the application.
 
 ## Finding 5: Generic Secret Exposure - Backup Admin Password
 **What this is:** A backup admin password is exposed in the `server.js` file.
 **How it would be exploited:** An attacker can use this password to gain administrative access to the application, allowing them to make unauthorized changes.
-**Business impact:** This can result in severe security breaches, data loss, and significant recovery costs.
+**Business impact:** This can lead to complete control over the application, resulting in data breaches and loss of user trust.
 
 ## [SEV-001] CRITICAL -- Generic secret
 
@@ -64,9 +64,9 @@ After fixing an issue, run its verification step before moving to the next issue
 3. Add automated secret scanning in CI and block new leaked credentials.
 
 **Fix Steps:**
-1. Remove the API_SECRET line from .env.example and store it securely.
+1. Remove the API_SECRET line from .env.example and store secrets securely using environment variables.
 
-**Verify:** Check the .env.example file for the absence of API_SECRET.
+**Verify:** Check the .env.example file to ensure the API_SECRET line is removed.
 
 ## [SEV-002] CRITICAL -- Generic secret
 
@@ -85,9 +85,9 @@ After fixing an issue, run its verification step before moving to the next issue
 3. Add automated secret scanning in CI and block new leaked credentials.
 
 **Fix Steps:**
-1. Remove the JWT_SECRET line from .env.example and store it securely.
+1. Remove the JWT_SECRET line from .env.example and store secrets securely using environment variables.
 
-**Verify:** Check the .env.example file for the absence of JWT_SECRET.
+**Verify:** Check the .env.example file to ensure the JWT_SECRET line is removed.
 
 ## [SEV-003] CRITICAL -- AWS Access Key
 
@@ -106,9 +106,9 @@ After fixing an issue, run its verification step before moving to the next issue
 3. Add automated secret scanning in CI and block new leaked credentials.
 
 **Fix Steps:**
-1. Remove the accessKeyId line from config.js and store it securely.
+1. Remove the accessKeyId line from config.js and store the AWS access key securely using environment variables.
 
-**Verify:** Check the config.js file for the absence of the AWS access key.
+**Verify:** Check the config.js file to ensure the accessKeyId line is removed.
 
 ## [SEV-004] CRITICAL -- Generic secret
 
@@ -127,9 +127,9 @@ After fixing an issue, run its verification step before moving to the next issue
 3. Add automated secret scanning in CI and block new leaked credentials.
 
 **Fix Steps:**
-1. Remove the INTERNAL_WEBHOOK_SECRET line from public/app.js and store it securely.
+1. Remove the INTERNAL_WEBHOOK_SECRET line from public/app.js and store secrets securely using environment variables.
 
-**Verify:** Check the public/app.js file for the absence of INTERNAL_WEBHOOK_SECRET.
+**Verify:** Check the public/app.js file to ensure the INTERNAL_WEBHOOK_SECRET line is removed.
 
 ## [SEV-005] CRITICAL -- Generic secret
 
@@ -148,6 +148,6 @@ After fixing an issue, run its verification step before moving to the next issue
 3. Add automated secret scanning in CI and block new leaked credentials.
 
 **Fix Steps:**
-1. Remove the BACKUP_ADMIN_PASSWORD line from server.js and store it securely.
+1. Remove the BACKUP_ADMIN_PASSWORD line from server.js and store the password securely using environment variables.
 
-**Verify:** Check the server.js file for the absence of BACKUP_ADMIN_PASSWORD.
+**Verify:** Check the server.js file to ensure the BACKUP_ADMIN_PASSWORD line is removed.
