@@ -1,6 +1,6 @@
 # VibeSec Security Report
 Repo: Preston-Miller/demo
-Scanned: 2026-03-04 20:08:37 UTC
+Scanned: 2026-03-04 20:28:14 UTC
 Issues Found: 5
 
 You are an AI coding agent. Fix each issue below in order.
@@ -34,18 +34,18 @@ After fixing an issue, run its verification step before moving to the next issue
 
 ## Finding 3: AWS Access Key Exposure
 **What this is:** An AWS access key is found in the `config.js` file.
-**How it would be exploited:** An attacker can use this access key to access AWS resources, potentially leading to data loss or service disruption.
-**Business impact:** This can incur significant costs and operational issues, as well as compromise sensitive data stored in AWS.
+**How it would be exploited:** An attacker can use this access key to access AWS resources, potentially leading to data theft or service disruption.
+**Business impact:** This can incur significant costs and lead to loss of sensitive data, affecting business operations.
 
 ## Finding 4: Generic Secret Exposure - Internal Webhook Secret
 **What this is:** An internal webhook secret is exposed in the `public/app.js` file.
-**How it would be exploited:** An attacker can use this secret to send unauthorized requests to internal services, potentially manipulating data or triggering actions.
-**Business impact:** This can lead to data integrity issues and unauthorized actions within the application.
+**How it would be exploited:** An attacker can use this secret to send unauthorized requests to internal services, compromising the application's integrity.
+**Business impact:** This can lead to unauthorized actions being performed on behalf of the application, resulting in data loss or corruption.
 
 ## Finding 5: Generic Secret Exposure - Backup Admin Password
 **What this is:** A backup admin password is exposed in the `server.js` file.
-**How it would be exploited:** An attacker can use this password to gain administrative access to the application, allowing them to make unauthorized changes.
-**Business impact:** This can result in complete control over the application, leading to data breaches and significant operational risks.
+**How it would be exploited:** An attacker can use this password to gain administrative access to the application, allowing them to manipulate data and settings.
+**Business impact:** This can lead to complete control over the application, resulting in severe data breaches and operational disruptions.
 
 ## [SEV-001] CRITICAL -- Generic secret
 
@@ -53,7 +53,7 @@ After fixing an issue, run its verification step before moving to the next issue
 **Type:** EXAMPLE
 **Line:** 7
 **Evidence:** `SECRET=sk_live_goat_seller_12345_secret_key`
-**Risk:** Sensitive information is stored in a publicly accessible file. An attacker accesses the .env.example file and retrieves the API secret.
+**Risk:** Sensitive information is stored in a publicly accessible file. An attacker accesses the .env.example file and uses the API secret.
 
 **OWASP Category:** Secrets Management
 **OWASP References:**
@@ -74,7 +74,7 @@ After fixing an issue, run its verification step before moving to the next issue
 **Type:** EXAMPLE
 **Line:** 9
 **Evidence:** `SECRET=my-super-secret-jwt-key-change-in-production`
-**Risk:** Sensitive information is stored in a publicly accessible file. An attacker accesses the .env.example file and retrieves the JWT secret.
+**Risk:** Sensitive information is stored in a publicly accessible file. An attacker accesses the .env.example file and uses the JWT secret.
 
 **OWASP Category:** Secrets Management
 **OWASP References:**
@@ -95,7 +95,7 @@ After fixing an issue, run its verification step before moving to the next issue
 **Type:** JavaScript
 **Line:** 17
 **Evidence:** `AKIAIOSFODNN7EXAMPLE`
-**Risk:** Sensitive information is stored in a publicly accessible file. An attacker accesses the config.js file and retrieves the AWS access key.
+**Risk:** Sensitive information is stored in a publicly accessible file. An attacker accesses the config.js file and uses the AWS access key.
 
 **OWASP Category:** Secrets Management
 **OWASP References:**
@@ -108,7 +108,7 @@ After fixing an issue, run its verification step before moving to the next issue
 **Fix Steps:**
 1. Remove the AWS access key from config.js and use environment variables instead.
 
-**Verify:** Check the config.js file for the absence of the AWS access key.
+**Verify:** Check config.js for the absence of the AWS access key.
 
 ## [SEV-004] CRITICAL -- Generic secret
 
@@ -116,7 +116,7 @@ After fixing an issue, run its verification step before moving to the next issue
 **Type:** JavaScript
 **Line:** 9
 **Evidence:** `API_KEY = 'pk_live_51ABC123def456GHI789jkl'`
-**Risk:** Sensitive information is stored in a publicly accessible file. An attacker accesses the public/app.js file and retrieves the internal webhook secret.
+**Risk:** Sensitive information is stored in a publicly accessible file. An attacker accesses the public/app.js file and uses the internal webhook secret.
 
 **OWASP Category:** Secrets Management
 **OWASP References:**
@@ -129,7 +129,7 @@ After fixing an issue, run its verification step before moving to the next issue
 **Fix Steps:**
 1. Remove the INTERNAL_WEBHOOK_SECRET from public/app.js and store it securely.
 
-**Verify:** Check the public/app.js file for the absence of INTERNAL_WEBHOOK_SECRET.
+**Verify:** Check public/app.js for the absence of INTERNAL_WEBHOOK_SECRET.
 
 ## [SEV-005] CRITICAL -- Generic secret
 
@@ -137,7 +137,7 @@ After fixing an issue, run its verification step before moving to the next issue
 **Type:** JavaScript
 **Line:** 11
 **Evidence:** `SECRET = 'whsec_do_not_commit_this'`
-**Risk:** Sensitive information is stored in a publicly accessible file. An attacker accesses the server.js file and retrieves the backup admin password.
+**Risk:** Sensitive information is stored in a publicly accessible file. An attacker accesses the server.js file and uses the backup admin password.
 
 **OWASP Category:** Secrets Management
 **OWASP References:**
@@ -150,4 +150,4 @@ After fixing an issue, run its verification step before moving to the next issue
 **Fix Steps:**
 1. Remove the BACKUP_ADMIN_PASSWORD from server.js and store it securely.
 
-**Verify:** Check the server.js file for the absence of BACKUP_ADMIN_PASSWORD.
+**Verify:** Check server.js for the absence of BACKUP_ADMIN_PASSWORD.
